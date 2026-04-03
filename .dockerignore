@@ -1,0 +1,4 @@
+.git
+build/
+vite/node_modules/
+vite/dist/
