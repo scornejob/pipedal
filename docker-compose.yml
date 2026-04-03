@@ -3,18 +3,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command:
-      - ./build/src/pipedald
-      - /etc/pipedal/config
-      - ./vite/dist
-      - -port
-      - "0.0.0.0:8080"
-      - -log-level
-      - debug
     ports:
       - "8080:8080"
     devices:
       - /dev/snd:/dev/snd
+    volumes:
+      - /sys/devices/system/cpu:/sys/devices/system/cpu
     group_add:
       - audio
+    cap_add:
+      - SYS_NICE
+      - IPC_LOCK
     restart: unless-stopped
