@@ -3,6 +3,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 
 import { styled } from '@mui/material/styles';
+import { Tone3000Client } from './Tone3000Client';
 
 
 const Frame = styled('div', {
@@ -48,7 +49,14 @@ function Tone3000AuthComplete(props: Tone3000AuthCompleteProps) {
             })
                 .catch((error) => {
                     alert("Error posting API key to Pipedal: " + error.message);
-                })
+                });
+
+            // Also create a browser-side session so the search dialog can make
+            // direct API calls to tone3000.com from the browser.
+            const client = new Tone3000Client();
+            client.createSession(apiKey).catch((error) => {
+                console.warn("Tone3000: failed to create browser session:", error);
+            });
         } else {
             alert("No API key found in URL.");
         }
