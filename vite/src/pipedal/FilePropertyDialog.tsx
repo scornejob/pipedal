@@ -21,7 +21,7 @@
 import React from 'react';
 import { createStyles } from './WithStyles';
 
-// import Tone3000Dialog from './Tone3000Dialog';
+import Tone3000Dialog from './Tone3000Dialog';
 
 import TextInfoDialog from './TextInfoDialog';
 import Tone3000HelpDialog from './Tone3000HelpDialog';
@@ -172,7 +172,7 @@ export interface FilePropertyDialogState {
     previousSelection: string;
     multiSelect: boolean,
     selectedFiles: string[],
-    //openTone3000Dialog: boolean,
+    openTone3000Dialog: boolean,
     openTone3000Help: boolean,
     openGuitarMlHelp: boolean,
 
@@ -249,7 +249,7 @@ export default withStyles(
                 previousSelection: this.props.selectedFile,
                 multiSelect: false,
                 selectedFiles: [],
-                //openTone3000Dialog: false,
+                openTone3000Dialog: false,
                 openTone3000Help: false,
                 openGuitarMlHelp: false
             };
@@ -1069,13 +1069,13 @@ export default withStyles(
                 () => { this.handleAutoScrollTick() }, AUTOSCROLL_TICK_DELAY);
         }
 
-        // handleTone3000Dialog(e: React.MouseEvent<HTMLButtonElement>) {
-        //     e.stopPropagation();
-        //     e.preventDefault();
+        handleTone3000Dialog(e: React.MouseEvent<HTMLButtonElement>) {
+            e.stopPropagation();
+            e.preventDefault();
 
-        //     this.setState({ openTone3000Dialog: true });
+            this.setState({ openTone3000Dialog: true });
 
-        // }
+        }
 
 
         handleGuitarMlHelp(e: React.MouseEvent<HTMLButtonElement>) {
@@ -1525,10 +1525,11 @@ export default withStyles(
                                             display: "flex", flexFlow: "row nowrap", justifyContent: "center",
                                             alignItems: "center", width: "100%"
                                         }}>
-                                            <Typography variant="body2" >
-                                                Download model files from <LinkEx
-                                                    href="https://www.tone3000.com/search" target="_blank">TONE3000</LinkEx>
-                                            </Typography>
+                                            <Button variant="outlined" size="small"
+                                                onClick={(e) => { this.handleTone3000Dialog(e); }}
+                                            >
+                                                Browse TONE3000
+                                            </Button>
                                             <IconButtonEx tooltip="Help"
                                             onClick={(e) => { this.handleTone3000Help(e); }} aria-label="help" edge="end" color="inherit" style={{ opacity: 0.6, marginLeft: 8 }}
                                             >
@@ -1742,12 +1743,18 @@ export default withStyles(
                                 )
                             )
                         }
-                        {/* {this.state.openTone3000Dialog && (
+                        {this.state.openTone3000Dialog && (
                             <Tone3000Dialog
                                 open={this.state.openTone3000Dialog}
                                 onClose={() => this.setState({ openTone3000Dialog: false })}
+                                uploadPage={
+                                    "uploadUserFile?directory=" + encodeURIComponent(this.state.currentDirectory)
+                                    + "&id=" + this.props.instanceId.toString()
+                                    + "&property=" + encodeURIComponent(this.props.fileProperty.patchProperty)
+                                }
+                                onUploaded={() => { this.requestFiles(this.state.navDirectory); }}
                             />
-                        )} */}
+                        )}
                         {this.state.openTone3000Help && (
                             <Tone3000HelpDialog
                                 open={this.state.openTone3000Help}
