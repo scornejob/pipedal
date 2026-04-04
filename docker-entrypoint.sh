@@ -11,11 +11,11 @@ mkdir -p /run/pipedal
 chown root:pipedal_d /run/pipedal
 chmod 775 /run/pipedal
 
-# Pre-seed AudioConfig.json to skip the onboarding/setup page on first run
-mkdir -p /var/pipedal
-if [ ! -f /var/pipedal/AudioConfig.json ]; then
-    echo '{"isOnboarding": false}' > /var/pipedal/AudioConfig.json
-fi
+# # Pre-seed AudioConfig.json to skip the onboarding/setup page on first run
+# mkdir -p /var/pipedal
+# if [ ! -f /var/pipedal/AudioConfig.json ]; then
+#     echo '{"isOnboarding": false}' > /var/pipedal/AudioConfig.json
+# fi
 
 # Start the admin service (creates /run/pipedal/pipedal_admin socket)
 /usr/sbin/pipedaladmind &

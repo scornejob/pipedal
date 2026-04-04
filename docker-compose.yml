@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    privileged: true
     ports:
       - "8080:8080"
     devices:
@@ -14,4 +15,9 @@ services:
     cap_add:
       - SYS_NICE
       - IPC_LOCK
+    ulimits:
+      rtprio: 95
+      nice:
+        soft: 29
+        hard: 29
     restart: unless-stopped
