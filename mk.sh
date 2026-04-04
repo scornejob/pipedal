@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-/usr/bin/cmake --build build --config RelWithDebInfo --target all 
+/usr/bin/cmake --build build --config RelWithDebInfo --target all -j$(nproc)
