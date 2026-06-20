@@ -1274,7 +1274,7 @@ namespace pipedal
             {
                 SetThreadName("webMain");
                 // The io_context is required for all I/O
-                boost::asio::io_service ioc{threads};
+                boost::asio::io_context ioc{threads};
                 //*********************************
 
                 m_endpoint.set_reuse_addr(true);
